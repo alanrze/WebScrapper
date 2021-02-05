@@ -1,0 +1,33 @@
+.userInput input {
+    height: 40px;
+    width: 250px;
+}
+.userInput {
+    height: 40px;
+    width: 250px;
+}
+
+#logoResult{ 
+	position:fixed;
+	top:0; 
+	left:0;
+
+    width:10%; 
+    height:10%;
+} 
+
+#userbox{ 
+	position:fixed;
+	top:0; 
+	position: absolute;
+    left: 150px;
+    width: 200px;
+    height: 40px;
+} 
+
+#userboxResults{
+    height: 40px;
+    width: 250px;
+    position: absolute;
+    top: 200px;
+}
