@@ -24,6 +24,7 @@ def test(query):
     resultsPrice = soup.findAll('div', attrs={'class': 'priceView-hero-price priceView-customer-price'})
     resultsName = soup.findAll('h4', attrs={'class': 'sku-header'})
     resultsPics = soup.findAll('img', attrs={'class':"product-image"})
+    
 
     element1 = soup.select('div.priceView-customer-price > span:first-child')
     
@@ -31,12 +32,17 @@ def test(query):
     finJ = {}
     finJ['BBlistings']=[]
     #data = finJ['BBlistings']
+    
     for (x,y,z) in zip(resultsPics, resultsName, element1):
+        linkStrt=y.find('a')
+        linkFin="https://www.bestbuy.com/"+linkStrt['href']
         dic = {}
         dic['name']=str(y.text)
         dic['price']=str(z.text)
         dic['pic']=str(x['src'])
-        print(str(dic['name']))
+        dic['redirectURL']=str(linkFin)
+        dic['store']="BestBuy"
+        
         finJ['BBlistings'].append(dic)
         #print(x,y,z)
         itrt = itrt+1
@@ -49,4 +55,4 @@ def test(query):
     print(finJ)
     return finJ
     
-#test("tv23")
+#test("3060ti")
