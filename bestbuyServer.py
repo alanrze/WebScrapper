@@ -36,10 +36,11 @@ def test(query):
     for (x,y,z) in zip(resultsPics, resultsName, element1):
         linkStrt=y.find('a')
         linkFin="https://www.bestbuy.com/"+linkStrt['href']
+        pictureLink = str(x['src'])
         dic = {}
         dic['name']=str(y.text)
         dic['price']=str(z.text)
-        dic['pic']=str(x['src'])
+        dic['pic']=pictureLink[:-27]
         dic['redirectURL']=str(linkFin)
         dic['store']="BestBuy"
         
