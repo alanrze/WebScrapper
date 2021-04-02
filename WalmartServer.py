@@ -37,12 +37,12 @@ def test(query):
     		print()
     		print()
     	"""
-    	for (x,y,z) in (name,price,pics):
-    		sublist.append(pics[i]['src'])
-    		sublist.append(name[i].text)
-    		sublist.append(price[i].text)
-    		finlist.append(sublist)
-    		if(itrt>=5):
+	for (x,y,z) in (name,price,pics):
+		sublist.append(pics[i]['src'])
+		sublist.append(name[i].text)
+		sublist.append(price[i].text)
+		finlist.append(sublist)
+		if(itrt>=5):
     			break
 	
 	driver.quit()
