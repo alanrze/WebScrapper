@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 #from requests_html import HTMLSession
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+import json
 
 def test(query):
     print("Opening window....")
@@ -11,17 +12,10 @@ def test(query):
     print("Opened window....")
 
     URL = "https://www.bestbuy.com/site/searchpage.jsp?st=" + query
-    #URL = 'https://www.bestbuy.com/site/searchpage.jsp?st=computer+laptop&_dyncharset=UTF-8&_dynSessConf=&id=pcat17071&type=page&sc=Global&cp=1&nrp=&sp=&qp=&list=n&af=true&iht=y&usc=All+Categories&ks=960&keys=keys'
-
-    #list1 = []
-    #list2 = []
-    #list3 = []
-    finlist = []
-    sublist = []
 
     print("Loading page....")
     driver.get(URL)
-    #page = requests.get(URL, headers=headers)
+
 
     soup = BeautifulSoup(driver.page_source, 'html.parser')
 
@@ -34,23 +28,25 @@ def test(query):
     element1 = soup.select('div.priceView-customer-price > span:first-child')
     
     itrt = 0
-    
+    finJ = {}
+    finJ['BBlistings']=[]
+    #data = finJ['BBlistings']
     for (x,y,z) in zip(resultsPics, resultsName, element1):
-        sublist.append(x['src'])
-        sublist.append(y.text)
-        sublist.append(z.text)
-        finlist.append(sublist)
-        sublist=[]
+        dic = {}
+        dic['name']=str(y.text)
+        dic['price']=str(z.text)
+        dic['pic']=str(x['src'])
+        print(str(dic['name']))
+        finJ['BBlistings'].append(dic)
+        #print(x,y,z)
         itrt = itrt+1
         if(itrt>=5):
            break
 
     print()
-
+    
     driver.quit()
-    print(finlist)
-    return finlist
+    print(finJ)
+    return finJ
     
 #test("tv23")
-
-    
