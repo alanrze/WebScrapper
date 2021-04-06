@@ -30,7 +30,7 @@
             <br>
             <br>
             <br>
-            <button id = "searchClick" class="btn btn-outline-danger">Search</button>
+            <button id = "searchClick-results" class="btn btn-outline-danger">Search</button>
         </div>
 
     </div>
@@ -40,10 +40,11 @@
     </h2>
     <br>
     
-    <div class = "card mb-3" style="min-width: 200; max-width: 600px;">
+    <div class = "cardHolder">
+    <div class = "card mb-3 d-none template" style="min-width: 200; max-width: 600px;">
         <div class = "row no-gutters">
             <div class = "col-md-4">
-                <img src= "placeholder.png" class = "card-img" alt ="Item Picture">
+                <img class = "card-img" src= "placeholder.png" alt ="Item Picture">
             </div>
             <div class = "col-md-8">
                 <div class = "card-body">
@@ -56,13 +57,14 @@
                     </p>
 
                     <p class="card-text retailer">
-                        <a src = "walmart.com"> walmart </a>
+                        <a class="card-website" href = "walmart.com"> Walmart </a>
                     </p>
 
                 </div>
             </div>
         </div>
     </div>
+   </div>
 </div>
 </body>
 </html>
