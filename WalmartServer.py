@@ -27,6 +27,8 @@ def test(query):
     #print(resultsPrice, resultsName, resultsPics)
     
     for (x,y,z) in zip(resultsPics, resultsName, resultsPrice):
+        #linkStrt=resultsName[itrt].find('a')
+        linkFin="https://www.walmart.com/"+resultsName[itrt]['href']
         priceStr = str(resultsPrice[itrt].text)
         strLenHalf = int((len(priceStr)/2))
         pictureLink = str(x['src'])
@@ -34,7 +36,7 @@ def test(query):
         dic['name']=str(resultsName[itrt].text)
         dic['price']=priceStr[0:strLenHalf]
         dic['pic']=resultsPics[itrt]['src']
-        #dic['redirectURL']=str(linkFin)
+        dic['redirectURL']=str(linkFin)
         dic['store']="Walmart"
         
         finJ['WMlistings'].append(dic)
@@ -49,4 +51,4 @@ def test(query):
     return finJ
     
     
-#test("tv")
+test("tv")
