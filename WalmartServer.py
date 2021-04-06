@@ -1,50 +1,52 @@
-from bs4 import BeautifulSoup
-#from requests_html import HTMLSession
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
+import re
+import mechanicalsoup
+import html
+import urllib.parse
+import json
 
-finlist = []
-sublist=[]
 
 def test(query):
-	print("Opening window....")
-	driver = webdriver.Chrome()
+    # Connect to duckduckgo
+    URL = "https://www.walmart.com/search/?query=" + query
+    browser = mechanicalsoup.StatefulBrowser(user_agent='MechanicalSoup')
+    browser.open(URL)
 
-	print("Opened window....")
+    page = browser.get_current_page()
+    resultsPrice = page.find_all('span', attrs={'class': 'price display-inline-block arrange-fit price price-main'})
+    resultsName = page.find_all('a', attrs={'class': 'product-title-link line-clamp line-clamp-2 truncate-title'})
+    resultsPics = page.find_all('img', attrs={'data-pnodetype': 'item-pimg'})
 
-	URL = "https://www.walmart.com/search/?query=" + query
-	driver.get(URL)
-	print("Loading page....")
+    #element1 = page.select('div.priceView-customer-price > span:first-child')
 
-	soup = BeautifulSoup(driver.page_source, 'html.parser')
-	print("Gathering listings....")
+    #print(element1, resultsName, resultsPics)
+    itrt = 0
+    finJ = {}
+    finJ['WMlistings']=[]
+    #data = finJ['BBlistings']
+    
+    #print(resultsPrice, resultsName, resultsPics)
+    
+    for (x,y,z) in zip(resultsPics, resultsName, resultsPrice):
+        priceStr = str(resultsPrice[itrt].text)
+        strLenHalf = int((len(priceStr)/2))
+        pictureLink = str(x['src'])
+        dic = {}
+        dic['name']=str(resultsName[itrt].text)
+        dic['price']=priceStr[0:strLenHalf]
+        dic['pic']=resultsPics[itrt]['src']
+        #dic['redirectURL']=str(linkFin)
+        dic['store']="Walmart"
+        
+        finJ['WMlistings'].append(dic)
+        #print(x,y,z)
+        itrt = itrt+1
+        if(itrt>=5):
+           break
 
-	name = soup.findAll('a', attrs={'class': 'product-title-link line-clamp line-clamp-2 truncate-title'})
-	price = soup.findAll('span', attrs={'class': 'price display-inline-block arrange-fit price price-main'})
-	pics = soup.findAll('img', attrs={'data-pnodetype': 'item-pimg'})
+    print()
 
-	#print(name)
-	#print(price)
-	print()
-	itrt = 0
-	"""for i in range(5):
-    		print(name[i].text)
-    		print(price[i].text)
-    		print(pics[i]['src'])
-    		finlist.append(name[i].text)
-    		finlist.append(price[i].text)
-    		finlist.append(pics[i]['src'])
-    		print()
-    		print()
-    	"""
-    	for (x,y,z) in (name,price,pics):
-    		sublist.append(pics[i]['src'])
-    		sublist.append(name[i].text)
-    		sublist.append(price[i].text)
-    		finlist.append(sublist)
-    		if(itrt>=5):
-    			break
-	
-	driver.quit()
-	return finlist
-#test("tv22")
+    print(finJ)
+    return finJ
+    
+    
+#test("tv")
