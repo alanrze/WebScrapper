@@ -51,4 +51,4 @@ def test(query):
     return finJ
     
     
-test("tv")
+#test("tv")
