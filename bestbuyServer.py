@@ -1,33 +1,24 @@
-from bs4 import BeautifulSoup
-#from requests_html import HTMLSession
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
+import re
+import mechanicalsoup
+import html
+import urllib.parse
 import json
 
+
 def test(query):
-    print("Opening window....")
-    chrome_options = Options()
-    #chrome_options.add_argument("--no-startup-window")
-    driver = webdriver.Chrome(options=chrome_options)
-    print("Opened window....")
-
+    # Connect to duckduckgo
     URL = "https://www.bestbuy.com/site/searchpage.jsp?st=" + query
+    browser = mechanicalsoup.StatefulBrowser(user_agent='MechanicalSoup')
+    browser.open(URL)
 
-    print("Loading page....")
-    driver.get(URL)
+    page = browser.get_current_page()
+    resultsPrice = page.find_all('div', attrs={'class': 'priceView-hero-price priceView-customer-price'})
+    resultsName = page.find_all('h4', attrs={'class': 'sku-header'})
+    resultsPics = page.find_all('img', attrs={'class':"product-image"})
 
+    element1 = page.select('div.priceView-customer-price > span:first-child')
 
-    soup = BeautifulSoup(driver.page_source, 'html.parser')
-
-    print("Gathering listings....")
-
-    resultsPrice = soup.findAll('div', attrs={'class': 'priceView-hero-price priceView-customer-price'})
-    resultsName = soup.findAll('h4', attrs={'class': 'sku-header'})
-    resultsPics = soup.findAll('img', attrs={'class':"product-image"})
-    
-
-    element1 = soup.select('div.priceView-customer-price > span:first-child')
-    
+    #print(element1, resultsName, resultsPics)
     itrt = 0
     finJ = {}
     finJ['BBlistings']=[]
@@ -51,9 +42,9 @@ def test(query):
            break
 
     print()
-    
-    driver.quit()
+
     print(finJ)
     return finJ
+    
     
 #test("3060ti")
