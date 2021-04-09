@@ -50,7 +50,7 @@ def test(query):
             
         if(resultsStock is None):
             dic['stock']="OOS"
-        if(resultsStock.text=="Sold Out" or resultsStock.text=="Out of Stock" or resultsStock.text=="Out Of Stock"):
+        elif(resultsStock.text=="Sold Out" or resultsStock.text=="Out of Stock" or resultsStock.text=="Out Of Stock"):
             dic['stock']="OOS"
             #print("OOS")
         else:
