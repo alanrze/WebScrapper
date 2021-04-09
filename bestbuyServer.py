@@ -47,7 +47,9 @@ def test(query):
             pictureLink = str(resultsPics['src'])
             dic['combo']=1
             dic['pic']=pictureLink[:-27]
-        
+            
+        if(resultsStock is None):
+            dic['stock']="OOS"
         if(resultsStock.text=="Sold Out" or resultsStock.text=="Out of Stock" or resultsStock.text=="Out Of Stock"):
             dic['stock']="OOS"
             #print("OOS")
