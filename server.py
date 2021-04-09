@@ -7,17 +7,14 @@ CORS(app)
 
 @app.route('/success/<name>')
 def success(name):
-   finJ = {}
-   finJ['Results']=[]
+   finJ={}
    import bestbuyServer
    import WalmartServer
-   #temp = 'I THINK IT WORKS %s' % name
    BB = bestbuyServer.test(name)
    WM = WalmartServer.test(name)
-   #dic['WM'] = WM
-   #dic['BB'] = BB
-   finJ['Results'].append(BB)
-   finJ['Results'].append(WM)
+   finJ['Results']=BB['BBlistings']
+   finJ['Results'].extend(WM['WMlistings'])
+   print("returning......",finJ)
    return finJ
 
 if __name__ == '__main__':
