@@ -19,7 +19,7 @@ $(function(){
     		    copy.removeClass("template")
     		    copy.removeClass("d-none")
     		    copy.find(".card-title").text(data.Results[x].name)
-                    copy.find(".item-price").text(data.Results[x].price)
+                    copy.find(".item-price").text(("$" + data.Results[x].price))
                     copy.find(".card-website").text(data.Results[x].store)
                     copy.find(".card-website").attr("href",data.Results[x].redirectURL)
 
