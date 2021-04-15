@@ -27,7 +27,8 @@ def test(query):
 
         #pictureLink = str(resultsPics['src'])
         dic['name']=str(resultsName.text)
-        dic['price']=str(resultsPrice[0].text)
+        priceSTR = str(resultsPrice[0].text)
+        dic['price']=float(priceSTR[1:])
         #dic['pic']=pictureLink[:-27]
         dic['redirectURL']=str(linkFin)
         
@@ -47,7 +48,7 @@ def test(query):
             pictureLink = str(resultsPics['src'])
             dic['combo']=1
             dic['pic']=pictureLink[:-27]
-            
+        
         if(resultsStock is None):
             dic['stock']="OOS"
         elif(resultsStock.text=="Sold Out" or resultsStock.text=="Out of Stock" or resultsStock.text=="Out Of Stock"):
@@ -72,4 +73,4 @@ def test(query):
     return finJ
     
     
-#test("ps5")
+#test("xbox")
