@@ -35,14 +35,16 @@ $(function(){
             copy.find(".item-price").text(("$" + data.Results[x].price))
             if(data.Results[x].stock == "In Stock"){
                 copy.addClass("IS")
-                copy.find(".card-website").text(data.Results[x].store)
+                copy.find(".card-redirect").text(data.Results[x].store)
             }
             else if(data.Results[x].stock == "OOS"){
                 copy.addClass("OOS")
-                copy.find(".card-website").text(data.Results[x].store + " - OOS")
-                copy.find(".card-website").attr("style", "color:#c10808")
+                copy.find(".card-redirect").text(data.Results[x].store + " - OOS")
+                copy.find(".card-redirect").removeClass("btn-primary")
+                copy.find(".card-redirect").addClass("btn-danger")
+                //copy.find(".card-redirect").attr("style", "color:#c10808")
             }
-            copy.find(".card-website").attr("href",data.Results[x].redirectURL)
+            copy.find(".card-redirect").attr("href",data.Results[x].redirectURL)
 
             //If combo item, it shows multiple pics
             if(data.Results[x].combo > 1){
