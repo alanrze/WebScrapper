@@ -129,4 +129,14 @@ $(function(){
         location.reload();
         runPy(usertext);
     })
+
+    $('#checkOOS').click(function(){
+        if ($("#checkOOS").is(":checked")){
+            console.log("hello")
+            $(".OOS").addClass("d-none");
+        }
+        else{
+            $(".OOS").removeClass("d-none");
+        }
+    })
 });
