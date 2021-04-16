@@ -1,5 +1,6 @@
 var dataG
 var dataOG
+var redirectSite
 
 $(function(){
     $('#searchClick').click(function(){
@@ -39,6 +40,9 @@ $(function(){
             }
             else if(data.Results[x].stock == "OOS"){
                 copy.addClass("OOS")
+                if ($("#checkOOS").is(":checked")){
+                    copy.addClass("d-none");
+                } 
                 copy.find(".card-redirect").text(data.Results[x].store + " - OOS")
                 copy.find(".card-redirect").removeClass("btn-primary")
                 copy.find(".card-redirect").addClass("btn-danger")
@@ -63,20 +67,31 @@ $(function(){
                     imageCopy.style="max-height: 100px; max-width: 100px;"
                     //temp.appendChild(imageCopy)
                     //copy.find('#secImageHolder').append(temp)
-                    console.log(temp)
+                    //console.log(temp)
                     copy.find(".secImageHolder").append(imageCopy)
                 }
             }
             else{
                 copy.find(".card-img-primary").removeClass("d-none")
                 copy.find(".card-img-primary").attr("src",data.Results[x].pic)
-                console.log(data.Results[x].pic)
+                //console.log(data.Results[x].pic)
             }
 
         copy.find(".imageHolder").removeClass(".templateIMG2H")
+        if ($("#checkOOS").is(":checked")){
+            copy.find(".OOS").addClass("d-none");
+        }
+        else{
+            copy.find(".OOS").removeClass("d-none");
+        }
         $(".cardHolder").append(copy)
         console.log("New card made...")
+        copy.find("#redirectBtn").click(function(){
+            console.log("hello")
+            window.open(copy.find("#redirectBtn").attr("href"))
+        })
 	}
+
     }
 
     function saveData(x){
@@ -104,7 +119,6 @@ $(function(){
         if ($("#radioLH").is(":checked")){
             sortLH(dataG)
             addCards(dataG)
-            console.log("hello")
         }
     })
 
@@ -118,7 +132,6 @@ $(function(){
     $("#radioBM").click(function (){
         if ($("#radioBM").is(":checked")){
             addCards(dataOG)
-            console.log(dataOG)
         }
     })
 
@@ -132,11 +145,11 @@ $(function(){
 
     $('#checkOOS').click(function(){
         if ($("#checkOOS").is(":checked")){
-            console.log("hello")
             $(".OOS").addClass("d-none");
         }
         else{
             $(".OOS").removeClass("d-none");
         }
     })
+
 });
